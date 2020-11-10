@@ -32,5 +32,11 @@ namespace CodingEventsDemo.Data
         {
             return Events[id];
         }
+
+        public static void Edit(int id, string name, string description)
+        {
+            Events[id].Name = name;
+            Events[id].Description = description;
+        }
     }
 }

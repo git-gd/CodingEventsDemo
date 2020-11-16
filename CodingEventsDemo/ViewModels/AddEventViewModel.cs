@@ -16,6 +16,10 @@ namespace CodingEventsDemo.ViewModels
         [Required(ErrorMessage = "Location is required")]
         public string Location { get; set; }
 
+        [Range(0, 100000)]
+        [Required(ErrorMessage ="Attendees must be between 0 and 100,000.")]
+        public int Attendees { get; set; }
+
         [EmailAddress]
         public string ContactEmail { get; set; }
     }

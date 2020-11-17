@@ -22,5 +22,13 @@ namespace CodingEventsDemo.ViewModels
 
         [EmailAddress]
         public string ContactEmail { get; set; }
+
+        // To practice validation, this must be checked to equal TRUE
+        [Compare("IsTrue")]
+        public bool Registration { get; set; }
+
+        // This is used with the above [Compare("STRING")] ...
+        // Comapre needs the STRING NAME of a PROPERTY to compare values
+        public bool IsTrue { get { return true; } }
     }
 }

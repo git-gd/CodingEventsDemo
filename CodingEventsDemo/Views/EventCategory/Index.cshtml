@@ -3,9 +3,9 @@
 <h1>Event Categories</h1>
 
 <table>
-    <th>Event Category</th>
+    <tr><th>Event Category</th></tr>
     @foreach (EventCategory eventCategory in Model)
     {
-        <td>@eventCategory.Name</td>
+        <tr><td>@eventCategory.Name</td></tr>
     }
 </table>

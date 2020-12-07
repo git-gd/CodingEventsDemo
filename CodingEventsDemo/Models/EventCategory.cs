@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace CodingEventsDemo.Models
 {
     public class EventCategory
@@ -11,6 +13,8 @@ namespace CodingEventsDemo.Models
         {
             Name = name;
         }
+
+        public List<Event> Events { get; set; }
 
         public EventCategory()
         {

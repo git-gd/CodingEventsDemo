@@ -25,7 +25,7 @@ namespace coding_events_practice.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            List<Event> events = context.Events.Include(e => e.EventCategory).ToList();
+            List<Event> events = context.Events.Include(e => e.Category).ToList();
 
             return View(events);
         }
@@ -48,7 +48,7 @@ namespace coding_events_practice.Controllers
                     Name = addEventViewModel.Name,
                     Description = addEventViewModel.Description,
                     ContactEmail = addEventViewModel.ContactEmail,
-                    EventCategory = category
+                    Category = category
                 };
 
                 context.Events.Add(newEvent);
@@ -79,6 +79,18 @@ namespace coding_events_practice.Controllers
             context.SaveChanges();
 
             return Redirect("/Events");
+        }
+
+        // We will pass the id in via a request path: -( /Events/Detail/X )- where X is our id
+        // This is similar to /Events/Detail?id=X
+        public IActionResult Detail(int id)
+        {
+            Event theEvent = context.Events // context is our link to our MySQL database and Events is our primary table
+                .Include(e => e.Category)   // we want to include the Name field stored in the related Category table
+                .Single(e => e.Id == id);   // we only want the SINGLE record whose Id matches the id passed to this handler as (int id)
+
+            EventDetailViewModel viewModel = new EventDetailViewModel(theEvent); // we create an instance of our ViewModel to pass
+            return View(viewModel); // and then pass the ViewModel to the View
         }
     }
 }

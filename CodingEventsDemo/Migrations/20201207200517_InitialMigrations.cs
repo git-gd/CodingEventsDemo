@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CodingEventsDemo.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,24 +29,23 @@ namespace CodingEventsDemo.Migrations
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     ContactEmail = table.Column<string>(nullable: true),
-                    EventCategoryId = table.Column<int>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_Categories_EventCategoryId",
-                        column: x => x.EventCategoryId,
+                        name: "FK_Events_Categories_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_EventCategoryId",
+                name: "IX_Events_CategoryId",
                 table: "Events",
-                column: "EventCategoryId");
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

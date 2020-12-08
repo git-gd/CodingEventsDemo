@@ -85,11 +85,20 @@ namespace coding_events_practice.Controllers
         // This is similar to /Events/Detail?id=X
         public IActionResult Detail(int id)
         {
+            if (id < 1) {
+                return Redirect("/Events");
+            }
+
             Event theEvent = context.Events // context is our link to our MySQL database and Events is our primary table
                 .Include(e => e.Category)   // we want to include the Name field stored in the related Category table
                 .Single(e => e.Id == id);   // we only want the SINGLE record whose Id matches the id passed to this handler as (int id)
 
-            EventDetailViewModel viewModel = new EventDetailViewModel(theEvent); // we create an instance of our ViewModel to pass
+            List<EventTag> eventTags = context.EventTags // our Tags from the join table
+                .Where(et => et.EventId == id) // that match the given Event id
+                .Include(et => et.Tag) // also pull the Name of the Tag out of the Tag table
+                .ToList(); // store this as a list since there can be multiple matches
+
+            EventDetailViewModel viewModel = new EventDetailViewModel(theEvent, eventTags); // we create an instance of our ViewModel to pass
             return View(viewModel); // and then pass the ViewModel to the View
         }
     }

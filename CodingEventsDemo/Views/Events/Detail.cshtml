@@ -1,3 +1,11 @@
 ﻿@model CodingEventsDemo.ViewModels.EventDetailViewModel
 
 <h1> Details</h1>
+
+<p>Name: @Model.Name</p>
+<p>Category: @Model.CategoryName</p>
+<p>Description: @Model.Description</p>
+<p>Contact: @Model.ContactEmail</p>
+<p>Tags: @Model.TagText</p>
+
+<a asp-controller="Tag" asp-action="AddEvent" asp-route-id="@Model.EventId">Add Tag</a>

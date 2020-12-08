@@ -15,5 +15,10 @@ namespace CodingEventsDemo.Models
         public EventTag()
         {
         }
+
+        public override string ToString()
+        {
+            return Tag.Name; // the only place I use ToString is in EventDetailViewModel..
+        }
     }
 }
